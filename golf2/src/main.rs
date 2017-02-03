@@ -125,6 +125,13 @@ pub unsafe fn reset_handler() {
         12);
     hotel::timels::Timels0.set_client(timer);
 
+    let keymgr = static_init!(
+        keymgr::KeymgrDriver,
+        keymgr::KeymgrDriver::new(
+            &mut hotel::crypto::keymgr::KEYMGR0_REGS,
+            kernel::Container::create()),
+        16);
+
     let digest = static_init!(
         digest::DigestDriver<'static, hotel::crypto::sha::ShaEngine>,
         digest::DigestDriver::new(
@@ -149,6 +156,7 @@ pub unsafe fn reset_handler() {
         console: console,
         gpio: gpio,
         timer: timer,
+        keymgr: keymgr,
         digest: digest,
         aes: aes,
         rng: rng,
