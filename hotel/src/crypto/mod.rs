@@ -1,4 +1,4 @@
-pub mod keymgr;
+pub mod regs;
 pub mod sha;
 pub mod aes;
 
